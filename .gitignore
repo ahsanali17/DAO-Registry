@@ -1,6 +1,8 @@
 node_modules
 .idea
 .env
+package-lock.json
+package.json
 #Hardhat files
 cache
 artifacts
