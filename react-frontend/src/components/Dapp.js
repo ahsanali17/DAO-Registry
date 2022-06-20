@@ -1,7 +1,7 @@
 import React from "react";
 
 // We'll use ethers to interact with the Ethereum network and our contract
-// import { ethers } from "ethers";
+import { ethers, providers } from "ethers";
 
 // We import the contract's artifacts and address here, as we are going to be
 // using them with ethers
@@ -17,6 +17,12 @@ import { ConnectWallet } from "./ConnectWallet";
 // import { Loading } from "./Loading";
 import { CreateToken } from "./CreateToken";
 import { CreateDao } from "./CreateDao";
+
+//======================================================================
+// We will retrieve our deployed Proxy Contract ABI and address
+// import contractJSON from './utils/proxyFactoryContract';
+// const proxyFactoryAddress = '';
+//======================================================================
 
 // This is the Hardhat Network id, you might change it in the hardhat.config.js.
 // If you are using MetaMask, be sure to change the Network id to 1337.
@@ -37,6 +43,9 @@ const HARDHAT_NETWORK_ID = '31337';
 // Note that (3) and (4) are specific of this sample application, but they show
 // you how to keep your Dapp and contract's state in sync,  and how to send a
 // transaction.
+//======================================================================
+// Application begins below here
+//======================================================================
 export class Dapp extends React.Component {
   constructor(props) {
     super(props);
@@ -72,6 +81,9 @@ export class Dapp extends React.Component {
     //
     // Note that we pass it a callback that is going to be called when the user
     // clicks a button. This callback just calls the _connectWallet method.
+    //======================================================================
+    // Wallet Button Renders First
+    //======================================================================
     if (!this.state.selectedAddress) {
       return (
         <ConnectWallet 
@@ -87,29 +99,32 @@ export class Dapp extends React.Component {
     // if (!this.state.tokenData || !this.state.balance) {
     //   return <Loading />;
     // }
-
+    //======================================================================
     // If everything is loaded, we render the application.
+    //======================================================================
     return (
       <div className="container p-4">
-        {/* Can add sign out wallet component here */}
+        <h1>Build your own DAO!</h1>
         <hr />
         <div className="row">
+          <h2>1. Let's create a governance token!</h2>
           <div className="col-12">
            {(
             <CreateToken
-             transferTokens={(to, amount) =>
-              this._transferTokens(to, amount)
-             }
+              createTokens={(tokenName, tokenSymbol) =>
+                this._tokenProxyFactoryContract(tokenName, tokenSymbol)
+              }
             />
            )}
           </div>
           <br/>
+          <h2>2. Let's Setup our DAO!</h2>
           <div className="col-12">
            {(
             <CreateDao
-             transferTokens={(to, amount) => 
-              this._transferTokens(to, amount)
-             }
+              createDaos={(daoName, daoSymbol) => 
+                this._daoProxyFactoryContract(daoName, daoSymbol)
+              }
             />
            )}
           </div>
@@ -118,12 +133,18 @@ export class Dapp extends React.Component {
     );
   }
 
+//======================================================================
+// Additional Async Methods Below
+//======================================================================
   componentWillUnmount() {
     // We poll the user's balance, so we have to stop doing that when Dapp
     // gets unmounted
     this._stopPollingData();
   }
 
+  //======================================================================
+  // Wallet Connector
+  //======================================================================
   async _connectWallet() {
     // This method is run when the user clicks the Connect. It connects the
     // dapp to the user's wallet, and initializes it.
@@ -161,7 +182,38 @@ export class Dapp extends React.Component {
       this._resetState();
     });
   }
-
+  
+  // async _deployContractInstances() {
+    // We can use a async function that will deploy the proxy copy 
+    /*
+      I'm thinking that as soon as we have the ABI code for the deployed proxy factory
+      contract, we can add it below and 
+    */
+   
+    // let signer = await providers.getSigner();
+    // new ethers.Contract(contractAddress, abi, signerOrProvider)
+    // let contractInstance = new ethers.Contract(contractAddress, contractJSON.abi, signer);
+    // await contractInstance.createDaoFactory(params_here);
+    
+  // }
+  
+//======================================================================
+// Important Async Tasks for Created Contract Copies 
+//======================================================================
+  // Responsible for getting the factory contracts to create a copy of DAO & token  
+  // async _daoProxyFactoryContract() {
+    /*
+    In here we can get the Proxy Factory contract's address, abi and the signer 
+    let signer = await providers.getSigner();
+    new ethers.Contract(daoProxyFactoryAddress, daoContracts.abi, signer );
+    */
+  
+  // }
+  
+  // async _tokenProxyFactoryContract() {
+    
+  // }
+  //======================================================================
   _initialize(userAddress) {
     // This method initializes the dapp
 
