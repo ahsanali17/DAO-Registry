@@ -197,14 +197,23 @@ export class Dapp extends React.Component {
     
   // }
   
+//======================================================================
+// Important Async Tasks for Created Contract Copies 
+//======================================================================
+  // Responsible for getting the factory contracts to create a copy of DAO & token  
   // async _daoProxyFactoryContract() {
-    
+    /*
+    In here we can get the Proxy Factory contract's address, abi and the signer 
+    let signer = await providers.getSigner();
+    new ethers.Contract(daoProxyFactoryAddress, daoContracts.abi, signer );
+    */
+  
   // }
   
   // async _tokenProxyFactoryContract() {
     
   // }
-
+  //======================================================================
   _initialize(userAddress) {
     // This method initializes the dapp
 
