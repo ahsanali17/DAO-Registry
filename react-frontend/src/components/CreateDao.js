@@ -11,11 +11,11 @@ export function CreateDao({ transferTokens }) {
           event.preventDefault();
 
           const formData = new FormData(event.target);
-          const DaoName = formData.get("DaoName");
-          const DaoSymbol = formData.get("DaoSymbol");
+          const daoName = formData.get("daoName");
+          const daoSymbol = formData.get("daoSymbol");
 
-          if (DaoName && DaoSymbol) {
-            transferTokens(DaoName, DaoSymbol);
+          if (daoName && daoSymbol) {
+            transferTokens(daoName, daoSymbol);
           }
         }}
       >
@@ -25,7 +25,7 @@ export function CreateDao({ transferTokens }) {
             className="form-control"
             type="text"
             step="1"
-            name="DaoSymbol"
+            name="daoSymbol"
             placeholder="Give your Dao a symbol"
             minLength={3}
             maxLength={4}
@@ -37,7 +37,7 @@ export function CreateDao({ transferTokens }) {
           <input 
             className="form-control" 
             type="text" 
-            name="DaoName" 
+            name="daoName" 
             placeholder="Give your new Dao a name"
             minLength={3}
             maxLength={10}
