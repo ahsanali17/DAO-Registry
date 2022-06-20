@@ -111,9 +111,9 @@ export class Dapp extends React.Component {
           <div className="col-12">
            {(
             <CreateToken
-             transferTokens={(tokenName, tokenSymbol) =>
-              this._tokenProxyFactoryContract(tokenName, tokenSymbol)
-             }
+              createTokens={(tokenName, tokenSymbol) =>
+                this._tokenProxyFactoryContract(tokenName, tokenSymbol)
+              }
             />
            )}
           </div>
@@ -122,9 +122,9 @@ export class Dapp extends React.Component {
           <div className="col-12">
            {(
             <CreateDao
-             transferTokens={(daoName, daoSymbol) => 
-              this._daoProxyFactoryContract(daoName, daoSymbol)
-             }
+              createDaos={(daoName, daoSymbol) => 
+                this._daoProxyFactoryContract(daoName, daoSymbol)
+              }
             />
            )}
           </div>

@@ -1,12 +1,12 @@
 import React from "react";
 
-export function CreateToken({ transferTokens }) {
+export function CreateToken({ createTokens }) {
   return (
     <div>
       <h4>Create ERC20</h4>
       <form
         onSubmit={(event) => {
-          // This function just calls the transferTokens callback with the
+          // This function just calls the createTokens callback with the
           // form's data.
           event.preventDefault();
 
@@ -15,7 +15,7 @@ export function CreateToken({ transferTokens }) {
           const tokenSymbol = formData.get("tokenSymbol");
 
           if (tokenName && tokenSymbol) {
-            transferTokens(tokenName, tokenSymbol);
+            createTokens(tokenName, tokenSymbol);
           }
         }}
       >

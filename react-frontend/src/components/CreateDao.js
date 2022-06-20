@@ -1,6 +1,6 @@
 import React from "react";
 
-export function CreateDao({ transferTokens }) {
+export function CreateDao({ createDaos }) {
   return (
     <div>
       <h4>Create Dao</h4>
@@ -15,7 +15,7 @@ export function CreateDao({ transferTokens }) {
           const daoSymbol = formData.get("daoSymbol");
 
           if (daoName && daoSymbol) {
-            transferTokens(daoName, daoSymbol);
+            createDaos(daoName, daoSymbol);
           }
         }}
       >
