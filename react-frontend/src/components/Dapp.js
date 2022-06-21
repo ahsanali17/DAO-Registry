@@ -1,6 +1,6 @@
 import React from "react";
 
-// import { ethers, providers } from "ethers";
+import { ethers, providers } from "ethers";
 import { NoWalletDetected } from "./NoWalletDetected";
 import { ConnectWallet } from "./ConnectWallet";
 import CreateDao from "./CreateDao";
@@ -22,10 +22,6 @@ const HARDHAT_NETWORK_ID = '31337';
 
 // This is an error code that indicates that the user canceled a transaction
 // const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
-
-const getFormData = (daoName, daoSymbol) => {
-  console.log(daoName, daoSymbol);
-}
 
 //======================================================================
 // Application begins below here
@@ -85,7 +81,7 @@ export class Dapp extends React.Component {
            {(
             <CreateDao
               daoData={(daoName, daoSymbol) => 
-                getFormData(daoName, daoSymbol)
+                this._getFormData(daoName, daoSymbol)
               }
             />
            )}
@@ -148,7 +144,10 @@ export class Dapp extends React.Component {
   //======================================================================
   // Important Async Tasks for Created Contract Copies 
   //======================================================================
-  // async _deployContractInstances() {
+  async _getFormData(daoName, daoSymbol) {
+    // Setting the initial state of daoData to the form data when have retrieved
+    this.setState({daoData: {daoName, daoSymbol}});
+    
     // We can use a async function that will deploy the proxy copy 
     /*
       I'm thinking that as soon as we have the ABI code for the deployed proxy factory
@@ -156,11 +155,10 @@ export class Dapp extends React.Component {
     */
    
     // let signer = await providers.getSigner();
-    // new ethers.Contract(contractAddress, abi, signerOrProvider)
     // let contractInstance = new ethers.Contract(contractAddress, contractJSON.abi, signer);
     // await contractInstance.createDaoFactory(params_here);
-    
-  // }
+    console.log(daoName, daoSymbol);
+  }
 
   //======================================================================
   _initialize(userAddress) {
