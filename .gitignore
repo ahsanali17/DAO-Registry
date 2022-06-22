@@ -4,3 +4,13 @@ node_modules
 #Hardhat files
 cache
 artifacts
+
+#Important 
+.env
+package.json
+package-lock.json
+# react-frontend 
+react-frontend/package.json
+react-frontend/package-lock.json
+react-frontend/node_modules
+
