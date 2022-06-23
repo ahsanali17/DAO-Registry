@@ -1,6 +1,6 @@
 import React from "react";
 
-export function CreateDao({ createDaos }) {
+export default function CreateDao({ daoData }) {
   return (
     <div>
       <h4>Create Dao</h4>
@@ -15,10 +15,22 @@ export function CreateDao({ createDaos }) {
           const daoSymbol = formData.get("daoSymbol");
 
           if (daoName && daoSymbol) {
-            createDaos(daoName, daoSymbol);
+            daoData(daoName, daoSymbol);
           }
         }}
       >
+        <div className="form-group">
+          <label>Name of Dao</label>
+          <input 
+            className="form-control" 
+            type="text" 
+            name="daoName" 
+            placeholder="Give your new Dao a name"
+            minLength={4}
+            maxLength={15}
+            required 
+          />
+        </div>
         <div className="form-group">
           <label>Dao Symbol</label>
           <input
@@ -27,21 +39,9 @@ export function CreateDao({ createDaos }) {
             step="1"
             name="daoSymbol"
             placeholder="Give your Dao a symbol"
-            minLength={3}
+            minLength={2}
             maxLength={4}
             required
-          />
-        </div>
-        <div className="form-group">
-          <label>Name of Dao</label>
-          <input 
-            className="form-control" 
-            type="text" 
-            name="daoName" 
-            placeholder="Give your new Dao a name"
-            minLength={3}
-            maxLength={10}
-            required 
           />
         </div>
         <div className="form-group">
