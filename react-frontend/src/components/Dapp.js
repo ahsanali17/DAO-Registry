@@ -4,6 +4,8 @@ import { ethers, providers } from "ethers";
 import { NoWalletDetected } from "./NoWalletDetected";
 import { ConnectWallet } from "./ConnectWallet";
 import CreateDao from "./CreateDao";
+import CreateToken from "./CreateToken";
+import CreateTimeLock from "./CreateTimelock";
 
 //======================================================================
 // import TokenArtifact from "../contracts/Token.json";
@@ -33,9 +35,11 @@ export class Dapp extends React.Component {
     // We store multiple things in Dapp's state.
     // You don't need to follow this pattern, but it's an useful example.
     this.initialState = {
-      // The info of the token (i.e. It's Name and symbol)
+      // The stored tokenData from the form 
       tokenData: undefined,
-      // The info of the dao
+      // The stored timeLockData from the form
+      timeLockData: undefined,
+      // The stored daoData from the form
       daoData: undefined,
       // The user's address and balance
       selectedAddress: undefined,
@@ -74,14 +78,38 @@ export class Dapp extends React.Component {
     //======================================================================
     return (
       <div className="container p-4">
+        <h1>Create a Token</h1>
+        <hr />
+        <div className="row">
+          <div className="col-12">
+            {(
+              <CreateToken tokenData={(userAddress) => this._getTokenFormData(userAddress)
+              }
+              />
+            )}
+          </div>
+        </div>
+        
+        <h1>Create TimeLock</h1>
+        <hr />
+        <div className="row">
+          <div className="col-12">
+            {(
+              <CreateTimeLock timeLockData={(userAddress) => this._getTimeLockFormData(userAddress)
+              }
+              />
+            )}
+          </div>
+        </div>
+        
         <h1>Build your own DAO!</h1>
         <hr />
         <div className="row">
           <div className="col-12">
            {(
             <CreateDao
-              daoData={(daoName, daoSymbol) => 
-                this._getFormData(daoName, daoSymbol)
+              daoData={(tokenAddress, timelockAddress, guardianAddress) => 
+                this._getDaoFormData(tokenAddress, timelockAddress, guardianAddress)
               }
             />
            )}
@@ -144,22 +172,39 @@ export class Dapp extends React.Component {
   //======================================================================
   // Important Async Tasks for Created Contract Copies 
   //======================================================================
-  async _getFormData(daoName, daoSymbol) {
-    // Setting the initial state of daoData to the form data when have retrieved
-    this.setState({daoData: {daoName, daoSymbol}});
+  async _getTokenFormData(userAddress) {
+    this.setState({tokenData: {userAddress}});
+    console.log(userAddress);
+  } 
+  
+  // async deployToken(userAddress) {
+  //   // Minimal Proxy will deploy Token implementation contract
     
-    // We can use a async function that will deploy the proxy copy 
-    /*
-      I'm thinking that as soon as we have the ABI code for the deployed proxy factory
-      contract, we can add it below and 
-    */
-   
-    // let signer = await providers.getSigner();
-    // let contractInstance = new ethers.Contract(contractAddress, contractJSON.abi, signer);
-    // await contractInstance.createDaoFactory(params_here);
-    console.log(daoName, daoSymbol);
+  // }
+  
+  async _getTimeLockFormData(userAddress) {
+    this.setState({timeLockData: {userAddress}})
+    console.log(userAddress);
   }
-
+  
+  // async deployTimeLock(userAddress) {
+  //   // Minimal Proxy will deploy TimeLock implementation contract
+    
+  // }
+  
+  async _getDaoFormData(tokenAddress, timelockAddress, guardianAddress) {
+    // Setting the initial state of daoData to the form data when have retrieved
+    this.setState({daoData: {tokenAddress, timelockAddress, guardianAddress}});
+    
+    console.log(tokenAddress, timelockAddress, guardianAddress);
+    
+    // deployDao(tokenAddress, timelockAddress, guardianAddress);
+  }
+    
+  // async deployDao(tokenAddress, timelockAddress, guardianAddress) {
+  //   // Minimal proxy will create copy of DAO implementation contract
+    
+  // }
   //======================================================================
   _initialize(userAddress) {
     // This method initializes the dapp
