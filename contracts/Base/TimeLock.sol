@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.10;
 
-import "./SafeMath.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-contract Timelock {
+contract TimeLock is Initializable{
     using SafeMath for uint;
 
     event NewAdmin(address indexed newAdmin);
@@ -24,7 +25,7 @@ contract Timelock {
     mapping (bytes32 => bool) public queuedTransactions;
     
 
-    constructor(address admin_, uint delay_){
+    function initialize(address admin_, uint delay_) payable public initializer{
         require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
         require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
 
@@ -33,6 +34,8 @@ contract Timelock {
     }
 
     fallback() external payable { }
+    
+    receive() external payable { }
 
     function setDelay(uint delay_) public {
         require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
