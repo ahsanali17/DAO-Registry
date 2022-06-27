@@ -1,11 +1,9 @@
 // This script will deploy all the base implementation contracts, Token, Timelock and Governor
 async function deployAllBase() {
  
- const interactor = "0x06122e6170114667780765E0Fc91f5A7F81142C4";
- 
  // Token Deployment
  const Token = await ethers.getContractFactory("Token");
- const token = await Token.deploy(interactor);
+ const token = await Token.deploy();
  await token.deployed();
 
  const tokenAddress = token.address;
@@ -14,8 +12,8 @@ async function deployAllBase() {
  console.log("Successfully deployed token!");
   
  // Timelock Deployment
- const Timelock = await ethers.getContractFactory("TimeLock");
- const timelock = await Timelock.deploy(interactor);
+ const Timelock = await ethers.getContractFactory("Timelock");
+ const timelock = await Timelock.deploy();
  await timelock.deployed();
  
  const timelockAddress = timelock.address;
