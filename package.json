@@ -1,16 +1,21 @@
 {
-  "name": "hardhat-hackathon-boilerplate",
+  "name": "Dao Registry",
   "version": "1.0.0",
-  "description": "A boilerplate repository to get you started with Hardhat and Ethereum development",
+  "description": "This is our version 0 of creating a way for daos to be created right from a form. The idea in the final rendition would be an easy way for a layman to create a Dao within their countries community regions.",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "tasks": "tasks"
   },
   "scripts": {
-    "test": "hardhat test"
+    "test": "hardhat test",
+    
+    "/scripts/Base/": "hardhat Base",
+    "/scripts/Proxies": "Proxy factory contract scripts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nomiclabs/hardhat-hackathon-boilerplate.git"
+    "url": "git+https://github.com/nomiclabs/hardhat-hackathon-boilerplate.git",
+    "ForkedRepourl": "git+https://github.com/ahsanali17/DAO-Registry.git"
   },
   "keywords": [
     "hardhat",
