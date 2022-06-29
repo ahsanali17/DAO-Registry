@@ -1,4 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-ethers");
+require("hardhat-deploy-ethers");
 require('@openzeppelin/hardhat-upgrades');
 require('dotenv').config();
 
@@ -15,7 +17,7 @@ module.exports = {
       chainId: 31337
     },
     rinkeby: {
-      url: process.env.RINKEBY_URL,
+      url: process.env.RINKEBY_URL || 'http://localhost:8545',
       accounts: [process.env.RINKEBY_PRIVATE_KEY]
     }
   },

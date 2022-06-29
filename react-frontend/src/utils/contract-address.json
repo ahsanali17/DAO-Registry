@@ -1,5 +1,15 @@
 {
-  "Token": "0x13E745b25CB21BF192134CB42763821E265a37C1",
-  "GovernorAlpha": "0xd956fa86639A2EaC1FA5727F2Aabe652404b1577",
-  "ProxyFactoryContract": "0x3e7A51308E3F3E31D0aFA3DABBf9c344318F97b2"
+  "ProxyFactoryContract": {
+    "deployedFactory": "0xc48C32E52C80076ac628187bAc8D9D49392F050A"
+  },
+  "BaseContracts": {
+    "Token": "0x60f837eF613B0780f678Cce9D3626eFB6841F47B",
+    "timeLock": "0x2039efe4Aa225820c5B4602Be059F3273dEa9E53",
+    "governorAlpha": "0x2F9A24FE15fE9C65D2bbE2EE6eEa281C2a3a979e"
+  },
+  "DeployedMinimalProxies": {
+    "MPToken": "",
+    "MPTimeLock": "",
+    "MPGovernorAlpha": ""
+  }
 }
