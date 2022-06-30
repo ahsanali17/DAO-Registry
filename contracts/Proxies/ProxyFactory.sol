@@ -38,11 +38,11 @@ contract ProxyFactory is Ownable {
  }
  
   //Function that creates a new instance of a Token
-  function createNewToken(address userAddress) payable external returns(address instance) {
+  function createNewToken(address userAddress, string memory _name, string memory _symbol) payable external returns(address instance) {
     // Clone the base contract and store it's address into local variable instance
    instance = Clones.clone(implementationTokenContract);
    // Return true, if calling the constructor/initialize function from the instance contract address 
-   (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address)", userAddress));
+   (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,string,string)", userAddress,_name,_symbol));
 
    require(success);
    allTokenClones.push(instance);
@@ -51,11 +51,11 @@ contract ProxyFactory is Ownable {
   }
   
   //Function that creates a new instance of a Token
-  function createNewTimeLock(address userAddress) payable external returns(address instance) {
+  function createNewTimeLock(address userAddress, uint delay) payable external returns(address instance) {
     // Clone the base contract and store it's address into local variable instance
    instance = Clones.clone(implementationTimeLockContract);
    // Return true, if calling the constructor/initialize function from the instance contract address 
-   (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address)", userAddress));
+   (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,uint)", userAddress,delay));
 
    require(success);
    allTimeLockClones.push(instance);
@@ -64,13 +64,13 @@ contract ProxyFactory is Ownable {
   }
   
   //Function that create a new instance of a DAO from frontend
-  function createNewDao(address timelockAddress, address tokenAddress, address guardian) 
+  function createNewDao(address timelockAddress, address tokenAddress, address _guardian) 
   payable external returns(address instance) {
-      guardian = msg.sender;
+    //guardian = _guardian;
     // Clone the base contract and store it's address into local variable instance
     instance = Clones.clone(implementationGovernorContract);
     // Return true, if calling the constructor/initialize function from the instance contract address 
-    (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,address,address)", timelockAddress, tokenAddress, guardian));
+    (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,address,address)", timelockAddress, tokenAddress, _guardian));
 
     require(success);
     allGovernorClones.push(instance);   

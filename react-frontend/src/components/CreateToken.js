@@ -5,6 +5,7 @@ export default function CreateToken({ tokenData }) {
     <div>
       <h4>Create ERC20</h4>
       <form
+        id="tokenForm"
         onSubmit={(event) => {
           // This function just calls the createTokens callback with the
           // form's data.
@@ -14,7 +15,7 @@ export default function CreateToken({ tokenData }) {
           const userAddress = formData.get("userAddress");
           const tokenName = formData.get("tokenName");
           const tokenSymbol = formData.get("tokenSymbol");
-          if (tokenName && tokenSymbol && userAddress) {
+          if (userAddress && tokenName && tokenSymbol) {
             tokenData(tokenName,tokenSymbol,userAddress);
           }
         }}
