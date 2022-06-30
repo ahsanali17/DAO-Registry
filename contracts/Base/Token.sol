@@ -3,12 +3,16 @@
 pragma solidity ^0.8.15;
 pragma experimental ABIEncoderV2;
 
-contract Token {
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+
+contract Token is Initializable{
     /// @notice EIP-20 token name for this token
-    string public constant name = "TestCoin";
+    string public name;
+
+    address public owner;
 
     /// @notice EIP-20 token symbol for this token
-    string public constant symbol = "TST";
+    string public symbol;
 
     /// @notice EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
@@ -62,9 +66,18 @@ contract Token {
      * @notice Construct a new Comp token
      * @param account The initial account to grant all the tokens
      */
-    constructor(address account){
+    function initialize(address account,string memory _name, string memory _symbol) payable public initializer{
+        owner = msg.sender;
+        name = _name;
+        symbol = _symbol;
         balances[account] = uint96(totalSupply);
         emit Transfer(address(0), account, totalSupply);
+    }
+
+    function changeNameAndSymbol(string memory newName, string memory newSymbol) public{
+        require(msg.sender == owner);
+        name = newName;
+        symbol = newSymbol;
     }
 
     /**
