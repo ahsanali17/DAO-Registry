@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function CreateToken({ tokenData }) {
-  return (
+export default function createTimeLock({ timeLockData }) {
+ return (
     <div>
-      <h4>Create ERC20</h4>
+      <h4>Create Timelock</h4>
       <form
         onSubmit={(event) => {
           // This function just calls the createTokens callback with the
@@ -14,27 +14,27 @@ export default function CreateToken({ tokenData }) {
           const userAddress = formData.get("userAddress");
 
           if (userAddress) {
-            tokenData(userAddress);
+           timeLockData(userAddress);
           }
         }}
       >
         <div className="form-group">
-          <label>Token Creators Address'</label>
+          <label>TimeLock Creators Address'</label>
           <input
             className="form-control"
             type="text"
             step="1"
             name="userAddress"
-            placeholder="Please provide token creators address"
+            placeholder="Please provide timelock creators address"
             required
           />
         </div>
         <div className="form-group">
           <input 
             className="btn btn-primary" 
-            id="createTokenButton"
+            id="createTimeLockButton"
             type="submit" 
-            value="Create Token" 
+            value="Create TimeLock" 
           />
         </div>
       </form>
