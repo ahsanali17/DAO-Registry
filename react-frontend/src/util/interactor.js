@@ -1,4 +1,3 @@
-import React from 'react';
 import { ethers } from 'ethers';
 import { contractABI, contractAddress } from '../util/constants';
 
