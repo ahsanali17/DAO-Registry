@@ -2,7 +2,7 @@ import React from "react";
 
 export default function CreateDao({ daoData }) {
   return (
-    <div>
+    <div className="border-gray">
       <h4>Create Dao</h4>
       <form
         onSubmit={(event) => {
@@ -12,15 +12,25 @@ export default function CreateDao({ daoData }) {
 
           const formData = new FormData(event.target);
         
-          const tokenAddress = formData.get("tokenAddress");
           const timelockAddress = formData.get("timelockAddress");
+          const tokenAddress = formData.get("tokenAddress");
           const guardianAddress = formData.get("guardianAddress");
-          
-          if (tokenAddress && timelockAddress && guardianAddress) {
-            daoData(tokenAddress, timelockAddress, guardianAddress);
+          if (timelockAddress && tokenAddress && guardianAddress) {
+            daoData(timelockAddress,tokenAddress,guardianAddress);
           }
         }}
       >
+        <div className="form-group">
+          <label>TimeLock Address</label>
+          <input
+            className="form-control form-input"
+            type="text"
+            step="1"
+            name="timelockAddress"
+            placeholder="Please provide your DAO's Timelock address"
+            required
+          />
+        </div>
         <div className="form-group">
           <label>Token Address</label>
           <input 
@@ -29,17 +39,6 @@ export default function CreateDao({ daoData }) {
             name="tokenAddress" 
             placeholder="Provide the address of the token to be used in the DAO"
             required 
-          />
-        </div>
-        <div className="form-group">
-          <label>TimeLock Address</label>
-          <input
-            className="form-control"
-            type="text"
-            step="1"
-            name="timelockAddress"
-            placeholder="Please provide your DAO's Timelock address"
-            required
           />
         </div>
         <div className="form-group">

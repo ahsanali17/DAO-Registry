@@ -1,14 +1,11 @@
 import React from "react";
-import { ethers } from "ethers";
 import { NoWalletDetected } from "./NoWalletDetected";
 import { ConnectWallet } from "./ConnectWallet";
 import CreateDao from "./CreateDao";
 import CreateToken from "./CreateToken";
 import CreateTimeLock from "./CreateTimelock";
-//======================================================================
-// We will retrieve our deployed Proxy Contract ABI and address:
-import minimalProxyArtifact from '../util/ProxyFactory.json';
-const proxyFactoryAddress = '0xe18245a7C7f7ba06e3DC244B8cdC14AABcB16F8C';
+
+import {createNewToken, createNewTimeLock, createNewDao} from '../context/formContext';
 //======================================================================
 // This is the Hardhat Network id, you might change it in the hardhat.config.js.
 // If you are using MetaMask, be sure to change the Network id to 1337.
@@ -71,38 +68,39 @@ export class Dapp extends React.Component {
     //======================================================================
     return (
       <div className="container p-4">
-        <h1>Create a Token</h1>
+        <h1>Interface for the ProxyFactory</h1>
+        <hr />
+        <h2>Create a Token</h2>
         <hr />
         <div className="row">
           <div className="col-12">
             {(
-              <CreateToken tokenData={(tokenName,tokenSymbol,userAddress) => this._minimalProxy.methods.createNewToken(tokenName,tokenSymbol,userAddress).call()}
+              <CreateToken 
+                tokenData={(tokenName,tokenSymbol,userAddress) => createNewToken({tokenName,tokenSymbol,userAddress})}
               />
             )}
           </div>
         </div>
         
-        <h1>Create TimeLock</h1>
+        <h2>Create TimeLock</h2>
         <hr />
         <div className="row">
           <div className="col-12">
             {(
-              <CreateTimeLock timeLockData={(userAddress) => this._getTimeLockFormData(userAddress)
-              }
+              <CreateTimeLock 
+                timeLockData={(userAddress,delay) => createNewTimeLock({userAddress,delay})}
               />
             )}
           </div>
         </div>
         
-        <h1>Build your own DAO!</h1>
+        <h2>Build your own DAO!</h2>
         <hr />
         <div className="row">
           <div className="col-12">
            {(
             <CreateDao
-              daoData={(tokenAddress, timelockAddress, guardianAddress) => 
-                this._getDaoFormData(tokenAddress, timelockAddress, guardianAddress)
-              }
+              daoData={(timelockAddress,tokenAddress,guardianAddress) => createNewDao({timelockAddress,tokenAddress,guardianAddress})}
             />
            )}
           </div>
@@ -167,16 +165,16 @@ export class Dapp extends React.Component {
   // Keep this below and above where it is called
   _initEther(){
     // We first initialize ethers by creating a provider using window.ethereum
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const signer = provider.getSigner(0);
     // Then, we initialize the contract using that provider and the token's
     // artifact. You can do this same thing with your contracts.
-    this._minimalProxy = new ethers.Contract(
-      proxyFactoryAddress,
-      minimalProxyArtifact,
-      signer
-    );
-    return this._minimalProxy;
+    // this._minimalProxy = new ethers.Contract(
+    //   proxyFactoryAddress,
+    //   minimalProxyArtifact,
+    //   signer
+    // );
+    // return this._minimalProxy;
   }
 
   // This method just clears part of the state.
