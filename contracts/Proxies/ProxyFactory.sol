@@ -4,7 +4,7 @@ pragma solidity 0.8.15;
 import "@openzeppelin/contracts/proxy/Clones.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ProxyFactory is Ownable {
+contract ProxyFactoryV1 is Ownable {
  
  // Variables Below:
  address public guardian;
@@ -43,7 +43,6 @@ contract ProxyFactory is Ownable {
    instance = Clones.clone(implementationTokenContract);
    // Return true, if calling the constructor/initialize function from the instance contract address 
    (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,string,string)", userAddress,_name,_symbol));
-
    require(success);
    allTokenClones.push(instance);
    emit NewClone(instance);
@@ -56,7 +55,6 @@ contract ProxyFactory is Ownable {
    instance = Clones.clone(implementationTimeLockContract);
    // Return true, if calling the constructor/initialize function from the instance contract address 
    (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,uint)", userAddress,delay));
-
    require(success);
    allTimeLockClones.push(instance);
    emit NewClone(instance);
@@ -71,7 +69,6 @@ contract ProxyFactory is Ownable {
     instance = Clones.clone(implementationGovernorContract);
     // Return true, if calling the constructor/initialize function from the instance contract address 
     (bool success, ) = instance.call{value:msg.value}(abi.encodeWithSignature("initialize(address,address,address)", timelockAddress, tokenAddress, _guardian));
-
     require(success);
     allGovernorClones.push(instance);   
     emit NewClone(instance);
