@@ -5,7 +5,7 @@ import CreateDao from "./CreateDao";
 import CreateToken from "./CreateToken";
 import CreateTimeLock from "./CreateTimelock";
 
-import {createNewToken, createNewTimeLock, createNewDao} from '../context/formContext';
+import {createNewToken, createNewTimeLock, createNewDao} from '../util/interactor';
 //======================================================================
 // This is the Hardhat Network id, you might change it in the hardhat.config.js.
 // If you are using MetaMask, be sure to change the Network id to 1337.
