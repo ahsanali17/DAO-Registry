@@ -5,7 +5,7 @@ import CreateDao from "./CreateDao";
 import CreateToken from "./CreateToken";
 import CreateTimeLock from "./CreateTimelock";
 
-import {createNewToken, createNewTimeLock, createNewDao} from '../util/interactor';
+import {createNewTimeLock,createNewToken,createNewDao} from '../util/minimalProxyInteractor';
 //======================================================================
 // This is the Hardhat Network id, you might change it in the hardhat.config.js.
 // If you are using MetaMask, be sure to change the Network id to 1337.
@@ -100,7 +100,7 @@ export class Dapp extends React.Component {
           <div className="col-12">
            {(
             <CreateDao
-              daoData={(timelockAddress,tokenAddress,guardianAddress) => createNewDao({timelockAddress,tokenAddress,guardianAddress})}
+              daoData={(timeLockAddress,tokenAddress,guardianAddress) => createNewDao({timeLockAddress,tokenAddress,guardianAddress})}
             />
            )}
           </div>
