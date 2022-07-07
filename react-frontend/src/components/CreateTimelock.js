@@ -12,20 +12,32 @@ export default function createTimeLock({ timeLockData }) {
 
           const formData = new FormData(event.target);
           const userAddress = formData.get("userAddress");
-
-          if (userAddress) {
-           timeLockData(userAddress);
+          const delay = formData.get("delay");
+          
+          if (userAddress && delay) {
+           timeLockData(userAddress,delay);
           }
         }}
       >
         <div className="form-group">
-          <label>TimeLock Creators Address'</label>
+          <label>TimeLock Creators Address</label>
           <input
             className="form-control"
             type="text"
             step="1"
             name="userAddress"
             placeholder="Please provide timelock creators address"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Delay Time</label>
+          <input
+            className="form-control"
+            type="text"
+            step="1"
+            name="delay"
+            placeholder="Delay must be above or equal to 2"
             required
           />
         </div>

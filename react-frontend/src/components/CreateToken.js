@@ -5,6 +5,7 @@ export default function CreateToken({ tokenData }) {
     <div>
       <h4>Create ERC20</h4>
       <form
+        id="tokenForm"
         onSubmit={(event) => {
           // This function just calls the createTokens callback with the
           // form's data.
@@ -12,18 +13,41 @@ export default function CreateToken({ tokenData }) {
 
           const formData = new FormData(event.target);
           const userAddress = formData.get("userAddress");
-
-          if (userAddress) {
-            tokenData(userAddress);
+          const tokenName = formData.get("tokenName");
+          const tokenSymbol = formData.get("tokenSymbol");
+          if (userAddress && tokenName && tokenSymbol) {
+            tokenData(tokenName,tokenSymbol,userAddress);
           }
         }}
       >
+        <div className="form-group">
+          <label>Name of the Token</label>
+          <input
+            className="form-control"
+            type="text"
+            step="1"
+            name="tokenName"
+            placeholder="Please provide token name"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Symbol used for Token</label>
+          <input
+            className="form-control"
+            type="text"
+            step="2"
+            name="tokenSymbol"
+            placeholder="Please provide token symbol"
+            required
+          />
+        </div>
         <div className="form-group">
           <label>Token Creators Address'</label>
           <input
             className="form-control"
             type="text"
-            step="1"
+            step="3"
             name="userAddress"
             placeholder="Please provide token creators address"
             required

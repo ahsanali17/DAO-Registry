@@ -2,7 +2,7 @@ import React from "react";
 
 export default function CreateDao({ daoData }) {
   return (
-    <div>
+    <div className="border-gray">
       <h4>Create Dao</h4>
       <form
         onSubmit={(event) => {
@@ -12,34 +12,36 @@ export default function CreateDao({ daoData }) {
 
           const formData = new FormData(event.target);
         
+          const timeLockAddress = formData.get("timeLockAddress");
           const tokenAddress = formData.get("tokenAddress");
-          const timelockAddress = formData.get("timelockAddress");
           const guardianAddress = formData.get("guardianAddress");
           
-          if (tokenAddress && timelockAddress && guardianAddress) {
-            daoData(tokenAddress, timelockAddress, guardianAddress);
+          console.log("Within the createDAO file:",timeLockAddress,tokenAddress,guardianAddress);
+          if (timeLockAddress && tokenAddress && guardianAddress) {
+            daoData(timeLockAddress,tokenAddress,guardianAddress);
           }
         }}
       >
-        <div className="form-group">
-          <label>Token Address</label>
-          <input 
-            className="form-control" 
-            type="text" 
-            name="tokenAddress" 
-            placeholder="Provide the address of the token to be used in the DAO"
-            required 
-          />
-        </div>
         <div className="form-group">
           <label>TimeLock Address</label>
           <input
             className="form-control"
             type="text"
             step="1"
-            name="timelockAddress"
+            name="timeLockAddress"
             placeholder="Please provide your DAO's Timelock address"
-            required
+            
+          />
+        </div>
+        <div className="form-group">
+          <label>Token Address</label>
+          <input 
+            className="form-control" 
+            type="text" 
+            step="2"
+            name="tokenAddress" 
+            placeholder="Provide the address of the token to be used in the DAO"
+             
           />
         </div>
         <div className="form-group">
@@ -47,10 +49,10 @@ export default function CreateDao({ daoData }) {
           <input
             className="form-control"
             type="text"
-            step="1"
+            step="3"
             name="guardianAddress"
             placeholder="Please provide a trustworthy security address"
-            required
+            
           />
         </div>
         <div className="form-group">
